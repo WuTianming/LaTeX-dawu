@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\usepackage{dawushiyan}
+
+\usepackage{ctex}
+
+\begin{document}
+  本文件展示 dawushiyan 模块的使用方法。
+
+  \textbf{Note:} 使用 dawushiyan 模块的代码需要经过 xelatex -> pythontex -> xelatex 三步编译。
+
+  \section*{主要命令}
+  命令接受4个参数，如下：
+
+  \textbackslash average\{前置字符\}\{数据，逗号分隔\}\{保留小数位\}\{物理量单位\}
+
+  使用 \textbackslash average 命令计算均值：
+
+  \average{\bar{l} =}{1.23, 1.24, 1.23}{2}{\,cm}
+
+  使用 \textbackslash stdev 命令计算标准差：
+
+  \stdev{s_l =}{1.23, 1.24, 1.23}{2}{\,cm}
+
+  提示：当标准差过长的时候，可以尝试使用 \textbackslash small，或者适当调小页边距。
+
+  默认计算出的数据为中间结果，会多保留一位小数，但计算过程中并不进行任何强制舍入。
+\end{document}
