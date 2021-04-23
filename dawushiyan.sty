@@ -1,0 +1,38 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dawushiyan}[2021/4/23]
+
+\RequirePackage[depythontex]{pythontex}
+
+\begin{pycode}
+import statistics
+def Average(precede, data, digit):
+    sumstr = '+'.join(
+      ["{:.{}f}".format(
+        i, digit
+      )
+    for i in data])
+    avg = statistics.mean(data)
+    print(
+      R'\[{} \frac{{{}}}{{{}}} = {:.{}f}\]'.format(
+        precede, sumstr, len(data), avg, digit + 1
+      )
+    )
+def StandardDeviation(precede, data, digit):
+    avg = statistics.mean(data)
+    sumstr = '+'.join(
+      "({:.{}f}-{:.{}f})^2".format(
+        i, digit, avg, digit + 1
+      )
+    for i in data)
+    sigma = statistics.stdev(data)
+    print(
+      R'\[{} \sqrt{{\frac{{{}}}{{{}-1}}}} = {:.{}f}\]'.format(
+        precede, sumstr, len(data), sigma, digit + 1
+      )
+    )
+\end{pycode}
+
+\newcommand{\average}[3]{\pyc{Average(R"#1",[#2],#3)}}
+\newcommand{\stdev}[3]{\pyc{StandardDeviation(R"#1",[#2],#3)}}
+
+\endinput
