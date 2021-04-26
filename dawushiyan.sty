@@ -5,6 +5,7 @@
 
 \begin{pycode}
 import statistics
+from math import *
 def Average(pre, data, digit, suf):
     sumstr = '+'.join(
       ["{:.{}f}".format(
@@ -34,6 +35,30 @@ def StandardDeviation(pre, data, digit, suf):
         sigma, digit + 1, suf
       )
     )
+def ExpandedUncertainty_68(pre, data, digit, suf, deltaB, is_vernier = False):
+    Formula = R'\sqrt{(t_{0.68}\frac{\sigma}{\sqrt{n}})^2+(k_p\frac{\Delta_B}{C})^2}'
+    t_68 = [0,0,0,1.32,1.20,1.14,1.11,1.09,1.08,1.07,1.06]
+    n  = len(data)
+    sigma = statistics.stdev(data)
+    u1 = t_68[n] * sigma / sqrt(n)
+    kp = 1.183   if is_vernier else 1.00
+    C  = sqrt(3) if is_vernier else 3.00
+    sC = R'\sqrt{3}' if is_vernier else R'3'
+    u2 = kp * deltaB / C
+    U  = sqrt(u1 * u1 + u2 * u2)
+    print(
+      R'\[{}{}=\sqrt{{({})^2+({})^2}}{}={:.{}f}{}\]'.format(
+        pre, Formula,
+        R'{:.2f}\times\frac{{{:.{}f}}}{{\sqrt{{{}}}}}'.format(
+          t_68[n], sigma, digit + 1, n
+        ),
+        R'{}\times\frac{{{}}}{{{}}}'.format(
+          kp, deltaB, sC
+        ),
+        suf,
+        U, digit + 1, suf
+      )
+    )
 def DataTable(pre, data, digit):
     len0 = len(data) + 1
     numstr = '组数&' + '&'.join(
@@ -58,5 +83,6 @@ def DataTable(pre, data, digit):
 \newcommand{\average}[4]{\pyc{Average(R'#1',[#2],#3,R'#4')}}
 \newcommand{\stdev}[4]{\pyc{StandardDeviation(R'#1',[#2],#3,R'#4')}}
 \newcommand{\datatable}[3]{\pyc{DataTable(R'#1',[#2],#3)}}
+\newcommand{\exuncert}[6][False]{\pyc{ExpandedUncertainty_68(R'#2',[#3],#4,R'#5',#6,#1)}}
 
 \endinput
