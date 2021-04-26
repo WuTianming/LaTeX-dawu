@@ -34,9 +34,29 @@ def StandardDeviation(pre, data, digit, suf):
         sigma, digit + 1, suf
       )
     )
+def DataTable(pre, data, digit):
+    len0 = len(data) + 1
+    numstr = '组数&' + '&'.join(
+      str(i)
+    for i in range(1, len0))
+    sumstr = pre + '&' + '&'.join(
+      "{:.{}f}".format(
+        i, digit
+      )
+    for i in data)
+    print(R'\begin{table}[H]')
+    print(R'\centering')
+    print(R'\begin{tabular}', end='')
+    print(R'{{{}}}'.format('|'.join('c' * len0)))
+    print(R'\hline')
+    print(numstr, end = '\\\\\\hline\n')
+    print(sumstr, end = '\\\\\\hline\n')
+    print(R'\end{tabular}')
+    print(R'\end{table}')
 \end{pycode}
 
-\newcommand{\average}[4]{\pyc{Average(R"#1",[#2],#3,R"#4")}}
-\newcommand{\stdev}[4]{\pyc{StandardDeviation(R"#1",[#2],#3,R"#4")}}
+\newcommand{\average}[4]{\pyc{Average(R'#1',[#2],#3,R'#4')}}
+\newcommand{\stdev}[4]{\pyc{StandardDeviation(R'#1',[#2],#3,R'#4')}}
+\newcommand{\datatable}[3]{\pyc{DataTable(R'#1',[#2],R'#3')}}
 
 \endinput
