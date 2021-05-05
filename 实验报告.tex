@@ -3,6 +3,7 @@
 \usepackage{dawushiyan}
 
 \usepackage{ctex}
+\usepackage{float}
 \usepackage{amsmath}
 \usepackage{fontspec}
 \usepackage[margin=6em]{geometry}
@@ -10,6 +11,14 @@
 \usepackage{anyfontsize}
 \usepackage{indentfirst}
 \xeCJKsetup{CJKmath=true}
+
+\renewcommand{\d}[1]{\mathrm{d}{#1}}
+\newcommand{\diff}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddiff}[2]{\dfrac{\d{#1}}{\d{#2}}}
+\renewcommand{\phi}{\varphi}
+\newcommand{\rel}[1]{\frac{\Delta #1}{#1}}
+\newcommand{\drel}[1]{\dfrac{\Delta #1}{#1}}
+\newcommand{\ru}[1]{\frac{U_{#1{}0.68}}{#1}}
 
 \title{实验题目\\\Large{实验报告}}
 \author{PB20000196 吴天铭}
@@ -28,4 +37,8 @@
   \section*{数据处理}
 
   \section*{思考题}
+  \begin{enumerate}
+    \item \textbf{题目} \\
+      \textbf{答：} 回答。
+  \end{enumerate}
 \end{document}
